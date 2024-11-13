@@ -14,10 +14,10 @@ class FavoritesPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: Text(
-              'Hii, You have ${appState.favorites.length} favorite words.',
+              'Anisaaa, Kamu memiliki ${appState.favorites.length} kata favorite.',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 202, 61, 96),
+                    color: const Color.fromARGB(255, 12, 100, 42),
                   ),
             ),
           ),
@@ -29,13 +29,13 @@ class FavoritesPage extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.favorite,
-                  color: Colors.redAccent,
+                  color: const Color.fromARGB(255, 12, 100, 42),
                 ),
                 title: Text(
                   pair.asLowerCase,
                   style: TextStyle(
                     fontSize: 18,
-                    color: const Color.fromARGB(255, 202, 61, 96),
+                    color: const Color.fromARGB(255, 12, 100, 42),
                     fontWeight: FontWeight.w600,
                   ),
                 ),

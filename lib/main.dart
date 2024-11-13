@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         title: 'Wise Word x Counter App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 252, 166, 192)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 12, 100, 42)),
         ),
         home: const MainPage(),
       ),

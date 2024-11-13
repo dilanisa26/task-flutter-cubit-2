@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_counter_cubit/counter/counter.dart';
 
-/// {@template counter_view}
-/// A [StatelessWidget] which reacts to the provided
-/// [CounterCubit] state and notifies it in response to user input.
-/// {@endtemplate}
 class CounterView extends StatelessWidget {
-  /// {@macro counter_view}
   const CounterView({super.key});
 
   @override
@@ -17,12 +12,16 @@ class CounterView extends StatelessWidget {
         if (state.isMultipleOfFive) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                'You got ${state.count}!',
-                style: const TextStyle(fontSize: 16),
+              content: Row(
+                children: [
+                  Text(
+                    'You got ${state.count}!',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
               ),
-              backgroundColor: const Color.fromARGB(255, 247, 182, 203),
-              duration: const Duration(seconds: 1),
+              backgroundColor: const Color.fromARGB(255, 8, 168, 117),
+              duration: const Duration(seconds: 2),
             ),
           );
         }
@@ -31,11 +30,11 @@ class CounterView extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Counter App'),
-            backgroundColor: const Color.fromARGB(255, 249, 119, 167),
+            backgroundColor: const Color.fromARGB(255, 8, 168, 117),
           ),
           body: Container(
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 209, 207, 207),  // Set background to grey
+              color: Color.fromARGB(255, 209, 207, 207),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -52,18 +51,43 @@ class CounterView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  // Show Image in the center of the page when the count is a multiple of 5
+                  if (state.isMultipleOfFive)
+                    Center(
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 8, 168, 117),
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color.fromARGB(255, 12, 100, 42).withOpacity(0.5),
+                              blurRadius: 15,
+                              spreadRadius: 8,
+                            )
+                          ],
+                        ),
+                        child: Image.asset(
+                          'assets/meme.jpg',
+                          width: 150,  // Adjust size of the image
+                          height: 150, // Adjust size of the image
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 40),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: state.isMultipleOfFive
-                          ? Colors.pink.shade400
-                          : Colors.pink.withOpacity(0.2),
+                          ? const Color.fromARGB(255, 8, 168, 117)
+                          : const Color.fromARGB(255, 12, 100, 42).withOpacity(0.2),
                       borderRadius: BorderRadius.circular(25),
                       boxShadow: state.isMultipleOfFive
                           ? [
                               BoxShadow(
-                                color: Colors.pink.shade800.withOpacity(0.5),
+                                color: const Color.fromARGB(255, 12, 100, 42).withOpacity(0.5),
                                 blurRadius: 15,
                                 spreadRadius: 8,
                               )
@@ -77,69 +101,62 @@ class CounterView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: state.isMultipleOfFive
                             ? Colors.white
-                            : Colors.pink.shade900,
+                            : const Color.fromARGB(255, 12, 100, 42),
                       ),
                     ),
                   ),
                   const SizedBox(height: 40),
-                  // Reorganize buttons into a column layout
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Basic operation buttons in a row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FloatingActionButton(
-                            onPressed: () =>
-                                context.read<CounterCubit>().decrement(),
-                            backgroundColor: Colors.pink.shade400,
-                            child: const Icon(Icons.remove),
-                          ),
-                          const SizedBox(width: 20),
-                          FloatingActionButton(
-                            onPressed: () =>
-                                context.read<CounterCubit>().increment(),
-                            backgroundColor: Colors.pink.shade600,
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
+                      ElevatedButton.icon(
+                        onPressed: () => context.read<CounterCubit>().decrement(),
+                        icon: const Icon(Icons.remove),
+                        label: const Text('Kurang 1'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 8, 168, 117),
+                          foregroundColor: Colors.white,
+                        ),
                       ),
-                      const SizedBox(height: 20),
-                      // Additional operation buttons in a column layout
-                      Column(
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () =>
-                                context.read<CounterCubit>().decrementByTwo(),
-                            icon: const Icon(Icons.exposure_minus_2),
-                            label: const Text('Decrease by 2'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.pink.shade300,
-                              foregroundColor: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          ElevatedButton.icon(
-                            onPressed: () =>
-                                context.read<CounterCubit>().multiplyByTwo(),
-                            icon: const Icon(Icons.close),
-                            label: const Text('Multiply by 2'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.pink.shade500,
-                              foregroundColor: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          ElevatedButton.icon(
-                            onPressed: () => context.read<CounterCubit>().reset(),
-                            icon: const Icon(Icons.refresh),
-                            label: const Text('Reset'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.pink.shade700,
-                              foregroundColor: Colors.white,
-                            ),
-                          ),
-                        ],
+                      const SizedBox(width: 20),
+                      ElevatedButton.icon(
+                        onPressed: () => context.read<CounterCubit>().increment(),
+                        icon: const Icon(Icons.add),
+                        label: const Text('Tambah 1'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 245, 120, 37),
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      ElevatedButton.icon(
+                        onPressed: () => context.read<CounterCubit>().decrementByTwo(),
+                        icon: const Icon(Icons.exposure_minus_2),
+                        label: const Text('Kurang 2'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 240, 27, 115),
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      ElevatedButton.icon(
+                        onPressed: () => context.read<CounterCubit>().multiplyByTwo(),
+                        icon: const Icon(Icons.close),
+                        label: const Text('Kali 2'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 16, 158, 240),
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      ElevatedButton.icon(
+                        onPressed: () => context.read<CounterCubit>().reset(),
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('Reset'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 236, 240, 39),
+                          foregroundColor: Colors.white,
+                        ),
                       ),
                     ],
                   ),

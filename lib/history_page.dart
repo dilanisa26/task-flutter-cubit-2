@@ -21,7 +21,7 @@ class HistoryPage extends StatelessWidget {
                   'There are ur Words History:',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 202, 61, 96),
+                        color: const Color.fromARGB(255, 12, 100, 42),
                       ),
                 ),
                 if (appState.history.isNotEmpty)
@@ -58,7 +58,7 @@ class HistoryPage extends StatelessWidget {
                     },
                     child: Text('Clear All'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 202, 61, 96),
+                      backgroundColor: const Color.fromARGB(255, 12, 100, 42),
                       foregroundColor: Colors.white,
                     ),
                   ),
@@ -80,7 +80,7 @@ class HistoryPage extends StatelessWidget {
                       pair.asLowerCase,
                       style: TextStyle(
                         fontSize: 18,
-                        color: const Color.fromARGB(255, 202, 61, 96),
+                        color: const Color.fromARGB(255, 12, 100, 42),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
